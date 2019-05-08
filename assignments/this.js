@@ -7,7 +7,7 @@
 
 * 3. New Binding- This is an object creator, it is used as a blueprint to create other objects. 'this' turns into the name of the object being created.
 
-* 4. 
+* 4. Explicit binding- applies object name as 'this' in call() and apply()
 *
 * write out a code example of each explanation above
 */
@@ -18,8 +18,6 @@
 function gameWanted(game){
     console.log(this)
 }
-
-gameWanted('Half Life 3');
 
 // Principle 2
 // code example for Implicit Binding
@@ -41,9 +39,10 @@ function animal(name, animal, sound){
     this.name = name;
     this.animal = animal;
     this.sound = sound;
-    this.definition = function(){
-        console.log(`${this.name} is a ${this.animal} that ${this.sound}s!`)
-    }
+}
+
+animal.prototype.definition = function(){
+    console.log(`${this.name} is a ${this.animal} that ${this.sound}s!`)
 }
 
 //Create new objects using blueprint//
@@ -55,7 +54,9 @@ amanda.definition();
 loki.definition();
 
 // Principle 4
-
-
-
 // code example for Explicit Binding
+
+animal.prototype.definition.call(amanda);
+animal.prototype.definition.apply(loki);
+
+
