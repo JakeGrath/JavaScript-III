@@ -139,3 +139,132 @@ CharacterStats.prototype.takeDamage = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  
+//Unfinished, will look into it when I have free time//
+
+  function Hero(heroAttr){
+    Humanoid.call(this, heroAttr);
+    this.powers = heroAttr.powers;
+    this.pronoun = heroAttr.pronoun;
+    this.atkPhrases = heroAttr.atkPhrases;
+    this.defPhrases = heroAttr.defPhrases;
+    this.enemy = heroAttr.enemy;
+    this.atkStr = heroAttr.atkStr;
+    this.dice = heroAttr.dice;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  function Villain(villainAttr){
+    Humanoid.call(this, villainAttr);
+    this.powers = villainAttr.powers;
+    this.pronoun = villainAttr.powers;
+    this.atkPhrases = villainAttr.atkPhrases;
+    this.defPhrases = villainAttr.defPhrases;
+    this.enemy = villainAttr.enemy;
+    this.atkStr = villainAttr.atkStr;
+    this.dice = villainAttr.dice;
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  const Amanda = new Hero({
+    name: 'Amanda',
+    pronoun: 'she',
+    healthPoints : 16,
+    dice : 5,
+    atkStr : 2,
+    powers : [
+      'scratches',
+      'nips',
+      'bites',
+      'tackles',
+    ],
+    atkPhrases : [
+      'growls',
+      'howls',
+      'chaffs',
+    ],
+    defPhrases : [
+      'yelps',
+      'screams',
+    ],
+    enemy : 'Loki'
+  })
+
+  Hero.prototype.attack = function(){
+    let atkPhraseNum = Math.floor(Math.random() * Math.floor(this.atkPhrases.length));
+    let atkPowersNum = Math.floor(Math.random() * Math.floor(this.powers.length));
+    let atkStr = Math.floor(Math.random() * Math.floor(this.dice)) * this.atkStr;
+    let target = this.enemy;
+    console.log(`${this.name} ${this.atkPhrases[atkPhraseNum]} and ${this.powers[atkPowersNum]} ${this.enemy} for ${atkStr} damage!`);
+    return atkStr;
+  }
+
+  Hero.prototype.defend = function(damage){
+    let defPhraseNum = Math.floor(Math.random() * Math.floor(this.defPhrases.length));
+    let target = this.enemy;
+    this.healthPoints = this.healthPoints - damage;
+    console.log(`${this.name} ${this.defPhrases[atkPhraseNum]} as ${this.pronoun} was attacked by ${this.enemy}.`);
+    if (this.healthPoints <= 0){
+      console.log(`${this.name} has ${this.healthPoints} HP left!`);
+      return 1;
+    }
+    else {
+      console.log(`${this.name} has been defeated!`)
+    }
+  }
+
+  const Loki = new Villain({
+    name : 'Loki',
+    pronoun : 'he',
+    healthPoints : 20,
+    dice : 10,
+    atkStr : 1,
+    powers : [
+      'scratches',
+      'smacks',
+      'bites',
+      'kicks',
+    ],
+    atkPhrases : [
+      'hisses',
+      'meows',
+      'purrs',
+    ],
+    defPhrases : [
+      'screeches',
+      'yowls',
+    ],
+    enemy : 'Amanda'
+  })
+
+  Villain.prototype.attack = function(){
+    let atkPhraseNum = Math.floor(Math.random() * Math.floor(this.atkPhrases.length));
+    let atkPowersNum = Math.floor(Math.random() * Math.floor(this.powers.length));
+    let atkStr = Math.floor(Math.random() * Math.floor(this.dice)) * this.atkStr;
+    let target = this.enemy;
+    console.log(`${this.name} ${this.atkPhrases[atkPhraseNum]} and ${this.powers[atkPowersNum]} ${this.enemy} for ${atkStr} damage!`);
+    return atkStr;
+  }
+
+  Villain.prototype.defend = function(){
+    let defPhraseNum = Math.floor(Math.random() * Math.floor(this.defPhrases.length));
+    let target = this.enemy;
+    console.log(`${this.name} ${this.defPhrases[atkPhraseNum]} as ${this.pronoun} was attacked by ${this.enemy}.`);
+    if (this.healthPoints <= 0){
+      console.log(`${this.name} has ${this.healthPoints} HP left!`);
+      return 1;
+    }
+    else {
+      console.log(`${this.name} has been defeated!`)
+    }
+  }
+
+//test attacks//
+Amanda.attack();
+Loki.attack();
+
+  function doBattle(hero, villain){
+
+  }
